@@ -41,12 +41,12 @@ import remix.myplayer.misc.handler.MsgHandler
 import remix.myplayer.misc.handler.OnHandleMessage
 import remix.myplayer.misc.interfaces.OnItemClickListener
 import remix.myplayer.misc.receiver.ExitReceiver
-import remix.myplayer.misc.update.DownloadService
-import remix.myplayer.misc.update.DownloadService.Companion.ACTION_DISMISS_DIALOG
-import remix.myplayer.misc.update.DownloadService.Companion.ACTION_DOWNLOAD_COMPLETE
-import remix.myplayer.misc.update.DownloadService.Companion.ACTION_SHOW_DIALOG
-import remix.myplayer.misc.update.UpdateAgent
-import remix.myplayer.misc.update.UpdateListener
+//import remix.myplayer.misc.update.DownloadService
+//import remix.myplayer.misc.update.DownloadService.Companion.ACTION_DISMISS_DIALOG
+//import remix.myplayer.misc.update.DownloadService.Companion.ACTION_DOWNLOAD_COMPLETE
+//import remix.myplayer.misc.update.DownloadService.Companion.ACTION_SHOW_DIALOG
+//import remix.myplayer.misc.update.UpdateAgent
+//import remix.myplayer.misc.update.UpdateListener
 import remix.myplayer.request.ImageUriRequest
 import remix.myplayer.request.LibraryUriRequest
 import remix.myplayer.request.RequestConfig
@@ -82,9 +82,9 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
   private val handler by lazy {
     MsgHandler(this)
   }
-  private val receiver by lazy {
-    MainReceiver(this)
-  }
+//  private val receiver by lazy {
+//    MainReceiver(this)
+//  }
 
   //当前选中的fragment
   private var currentFragment: LibraryFragment<*, *>? = null
@@ -123,7 +123,7 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
 
   override fun onDestroy() {
     super.onDestroy()
-    unregisterLocalReceiver(receiver)
+//    unregisterLocalReceiver(receiver)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,10 +132,10 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
 
     val intentFilter = IntentFilter()
     //        intentFilter.addAction(ACTION_LOAD_FINISH);
-    intentFilter.addAction(ACTION_DOWNLOAD_COMPLETE)
-    intentFilter.addAction(ACTION_SHOW_DIALOG)
-    intentFilter.addAction(ACTION_DISMISS_DIALOG)
-    registerLocalReceiver(receiver, intentFilter)
+//    intentFilter.addAction(ACTION_DOWNLOAD_COMPLETE)
+//    intentFilter.addAction(ACTION_SHOW_DIALOG)
+//    intentFilter.addAction(ACTION_DISMISS_DIALOG)
+//    registerLocalReceiver(receiver, intentFilter)
 
     //初始化控件
     setUpToolbar()
@@ -146,7 +146,7 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
     setUpDrawerLayout()
     setUpViewColor()
     //handler
-    handler.postDelayed({ this.checkUpdate() }, 500)
+//    handler.postDelayed({ this.checkUpdate() }, 500)
 
     //清除多选显示状态
     MultipleChoice.isActiveSomeWhere = false
@@ -635,12 +635,12 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
   }
 
   private fun checkUpdate() {
-    if (!IS_GOOGLEPLAY && !mAlreadyCheck) {
-      UpdateAgent.forceCheck = false
-      UpdateAgent.listener = UpdateListener(mContext)
-      mAlreadyCheck = true
-      UpdateAgent.check(this)
-    }
+//    if (!IS_GOOGLEPLAY && !mAlreadyCheck) {
+//      UpdateAgent.forceCheck = false
+//      UpdateAgent.listener = UpdateListener(mContext)
+//      mAlreadyCheck = true
+//      UpdateAgent.check(this)
+//    }
   }
 
   private fun checkIsAndroidO(context: Context, path: String) {
@@ -687,26 +687,26 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
     bottomActionBarFragment?.startPlayerActivity()
   }
 
-  class MainReceiver internal constructor(mainActivity: MainActivity) : BroadcastReceiver() {
-    private val mRef: WeakReference<MainActivity> = WeakReference(mainActivity)
-
-    override fun onReceive(context: Context, intent: Intent?) {
-      if (intent == null) {
-        return
-      }
-      val action = intent.action
-      if (action.isNullOrEmpty()) {
-        return
-      }
-      val mainActivity = mRef.get() ?: return
-      when (action) {
-        ACTION_DOWNLOAD_COMPLETE -> mainActivity.checkIsAndroidO(context, intent.getStringExtra(DownloadService.EXTRA_PATH))
-        ACTION_SHOW_DIALOG -> mainActivity.showForceDialog()
-        ACTION_DISMISS_DIALOG -> mainActivity.dismissForceDialog()
-      }
-
-    }
-  }
+//  class MainReceiver internal constructor(mainActivity: MainActivity) : BroadcastReceiver() {
+//    private val mRef: WeakReference<MainActivity> = WeakReference(mainActivity)
+//
+//    override fun onReceive(context: Context, intent: Intent?) {
+//      if (intent == null) {
+//        return
+//      }
+//      val action = intent.action
+//      if (action.isNullOrEmpty()) {
+//        return
+//      }
+//      val mainActivity = mRef.get() ?: return
+//      when (action) {
+////        ACTION_DOWNLOAD_COMPLETE -> mainActivity.checkIsAndroidO(context, intent.getStringExtra(DownloadService.EXTRA_PATH))
+////        ACTION_SHOW_DIALOG -> mainActivity.showForceDialog()
+////        ACTION_DISMISS_DIALOG -> mainActivity.dismissForceDialog()
+//      }
+//
+//    }
+//  }
 
   companion object {
     const val EXTRA_RECREATE = "extra_needRecreate"

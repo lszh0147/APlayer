@@ -52,8 +52,8 @@ import remix.myplayer.misc.handler.MsgHandler
 import remix.myplayer.misc.handler.OnHandleMessage
 import remix.myplayer.misc.receiver.HeadsetPlugReceiver
 import remix.myplayer.misc.tryLaunch
-import remix.myplayer.misc.update.UpdateAgent
-import remix.myplayer.misc.update.UpdateListener
+//import remix.myplayer.misc.update.UpdateAgent
+//import remix.myplayer.misc.update.UpdateListener
 import remix.myplayer.misc.zipFrom
 import remix.myplayer.misc.zipOutputStream
 import remix.myplayer.request.ImageUriRequest
@@ -476,9 +476,9 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
             )
             //检查更新
             R.id.setting_update_container -> {
-              UpdateAgent.forceCheck = true
-              UpdateAgent.listener = UpdateListener(this@SettingActivity)
-              UpdateAgent.check(this@SettingActivity)
+//              UpdateAgent.forceCheck = true
+//              UpdateAgent.listener = UpdateListener(this@SettingActivity)
+//              UpdateAgent.check(this@SettingActivity)
             }
             //清除缓存
             R.id.setting_clear_container -> clearCache()

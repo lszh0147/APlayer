@@ -7,22 +7,22 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
   <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+<!--  <uses-permission android:name="android.permission.INTERNET"/>-->
+<!--  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
+<!--  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-  <uses-permission android:name="android.permission.READ_LOGS"/>
+<!--  <uses-permission android:name="android.permission.READ_LOGS"/>-->
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+<!--  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>-->
   <uses-permission android:name="android.hardware.sensor.accelerometer"/>
-  <uses-permission android:name="com.android.vending.BILLING"/>
+<!--  <uses-permission android:name="com.android.vending.BILLING"/>-->
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
   <application
     android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@drawable/icon"
     android:label="@string/app_name"
     android:name=".App"
     android:supportsRtl="true"
@@ -30,9 +30,9 @@
     android:requestLegacyExternalStorage="true"
     android:networkSecurityConfig="@xml/network_security_config">
 
-    <meta-data
-      android:name="BUGLY_APP_CHANNEL"
-      android:value="${CHANNEL_VALUE}"/>
+<!--    <meta-data-->
+<!--      android:name="BUGLY_APP_CHANNEL"-->
+<!--      android:value="${CHANNEL_VALUE}"/>-->
 
     <!-- 主页面 -->
     <activity
@@ -171,9 +171,9 @@
     <service
       android:exported="false"
       android:name=".service.MusicService"/>
-    <service
-      android:exported="false"
-      android:name=".misc.update.DownloadService"/>
+<!--    <service-->
+<!--      android:exported="false"-->
+<!--      android:name=".misc.update.DownloadService"/>-->
 
     <!-- 桌面部件 -->
     <receiver
