@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'bugly'
-
-bugly {
-    appId = "${getProperty(getProperties('../local.properties'), 'BUGLY_APPID')}"
-    appKey = "04ab39c8-86fc-4ed6-b28b-6fdfee6e19d9"
-}
+//apply plugin: 'bugly'
+//
+//bugly {
+//    appId = "${getProperty(getProperties('../local.properties'), 'BUGLY_APPID')}"
+//    appKey = "04ab39c8-86fc-4ed6-b28b-6fdfee6e19d9"
+//}
 
 repositories {
     maven {
@@ -83,7 +83,8 @@ android {
             versionNameSuffix '-DEBUG'
 
             ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
+                abiFilters 'arm64-v8a'
+//                abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86'
             }
         }
         release {
@@ -96,7 +97,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             ndk {
-                abiFilters 'armeabi-v7a', 'arm64-v8a'
+                abiFilters 'arm64-v8a'
+//                abiFilters 'armeabi-v7a', 'arm64-v8a'
             }
         }
 
@@ -210,7 +212,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-2'
 
     //bugly
-    implementation 'com.tencent.bugly:crashreport:3.3.3'
+//    implementation 'com.tencent.bugly:crashreport:3.3.3'
 
     //gp
     implementation 'com.anjlab.android.iab.v3:library:1.1.0'
