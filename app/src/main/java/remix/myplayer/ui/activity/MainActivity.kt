@@ -393,12 +393,12 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
           0 -> drawer.closeDrawer(navigation_view)
           //最近添加
           1 -> startActivity(Intent(mContext, RecentlyActivity::class.java))
-          //捐赠
-          2 -> startActivity(Intent(mContext, SupportDevelopActivity::class.java))
+//          //捐赠
+//          2 -> startActivity(Intent(mContext, SupportDevelopActivity::class.java))
           //设置
-          3 -> startActivityForResult(Intent(mContext, SettingActivity::class.java), REQUEST_SETTING)
+          2 -> startActivityForResult(Intent(mContext, SettingActivity::class.java), REQUEST_SETTING)
           //退出
-          4 -> {
+          3 -> {
             Timber.v("发送Exit广播")
             sendBroadcast(Intent(Constants.ACTION_EXIT)
                 .setComponent(ComponentName(mContext, ExitReceiver::class.java)))
