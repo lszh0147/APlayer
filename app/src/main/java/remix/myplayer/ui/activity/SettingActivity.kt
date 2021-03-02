@@ -1196,7 +1196,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
         mContext,
         SETTING_KEY.NAME,
         SETTING_KEY.LOCKSCREEN,
-        Constants.APLAYER_LOCKSCREEN
+        Constants.SYSTEM_LOCKSCREEN
       )
     ) { dialog, view, which, text ->
         SPUtil.putValue(
