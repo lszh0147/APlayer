@@ -25,7 +25,7 @@ public class DrawerAdapter extends BaseAdapter<Integer, DrawerAdapter.DrawerHold
   private int[] IMAGES = new int[]{R.drawable.drawer_icon_musicbox, R.drawable.drawer_icon_recently,
       R.drawable.darwer_icon_support, R.drawable.darwer_icon_set, R.drawable.drawer_icon_exit};
   private int[] TITLES = new int[]{R.string.drawer_song, R.string.drawer_recently,
-      R.string.support_develop, R.string.drawer_setting, R.string.exit};
+       R.string.drawer_setting, R.string.exit};
 
   public DrawerAdapter(int layoutId) {
     super(layoutId);
