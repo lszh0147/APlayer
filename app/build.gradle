@@ -104,7 +104,7 @@ android {
 
         android.applicationVariants.all {variant ->
             variant.outputs.all {
-                outputFileName = "APlayer_v${defaultConfig.versionName}_${variant.productFlavors[0].name}_${new Date().format("yyyy-MM-dd HH-mm")}.apk"
+                outputFileName = "APlayer_v${defaultConfig.versionName}_${variant.productFlavors[0].name}.apk"
             }
         }
     }

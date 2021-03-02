@@ -52,7 +52,7 @@ import remix.myplayer.bean.netease.NAlbumSearchResponse;
 import remix.myplayer.bean.netease.NArtistSearchResponse;
 import remix.myplayer.bean.netease.NSongSearchResponse;
 import remix.myplayer.misc.cache.DiskCache;
-import remix.myplayer.request.network.HttpClient;
+//import remix.myplayer.request.network.HttpClient;
 import remix.myplayer.util.DensityUtil;
 import remix.myplayer.util.ImageUriUtil;
 import remix.myplayer.util.MediaStoreUtil;
@@ -289,33 +289,34 @@ public abstract class ImageUriRequest<T> {
 
   //lastFM
   private Observable<String> getLastFMNetworkThumbObservable(UriRequest request) {
-    return Observable.concat(Observable.create(new ObservableOnSubscribe<String>() {
-      @Override
-      public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-        String imageUrl = SPUtil
-            .getValue(App.getContext(), SPUtil.COVER_KEY.NAME, request.getLastFMKey(), "");
-        if (!TextUtils.isEmpty(imageUrl) && UriUtil.isNetworkUri(Uri.parse(imageUrl)) && !BLACKLIST
-            .contains(imageUrl)) {
-          emitter.onNext(imageUrl);
-        }
-        emitter.onComplete();
-      }
-    }), Observable.just(isAutoDownloadCover() && !TextUtils.isEmpty(request.getLastFMKey()))
-        .filter(aBoolean -> aBoolean)
-        .flatMap(new Function<Boolean, ObservableSource<String>>() {
-          private Observable<ResponseBody> getObservable(UriRequest request) {
-            return request.getSearchType() == ImageUriRequest.URL_ALBUM ?
-                HttpClient.getInstance()
-                    .getAlbumInfo(request.getAlbumName(), request.getArtistName(), null) :
-                HttpClient.getInstance().getArtistInfo(request.getArtistName(), null);
-          }
-
-          @Override
-          public ObservableSource<String> apply(Boolean aBoolean) {
-            return getObservable(request)
-                .map(responseBody -> parseLastFMNetworkImageUrl(request, responseBody));
-          }
-        }).firstElement().toObservable());
+    return Observable.empty();
+//    return Observable.concat(Observable.create(new ObservableOnSubscribe<String>() {
+//      @Override
+//      public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+//        String imageUrl = SPUtil
+//            .getValue(App.getContext(), SPUtil.COVER_KEY.NAME, request.getLastFMKey(), "");
+//        if (!TextUtils.isEmpty(imageUrl) && UriUtil.isNetworkUri(Uri.parse(imageUrl)) && !BLACKLIST
+//            .contains(imageUrl)) {
+//          emitter.onNext(imageUrl);
+//        }
+//        emitter.onComplete();
+//      }
+//    }), Observable.just(isAutoDownloadCover() && !TextUtils.isEmpty(request.getLastFMKey()))
+//        .filter(aBoolean -> aBoolean)
+//        .flatMap(new Function<Boolean, ObservableSource<String>>() {
+//          private Observable<ResponseBody> getObservable(UriRequest request) {
+//            return request.getSearchType() == ImageUriRequest.URL_ALBUM ?
+//                HttpClient.getInstance()
+//                    .getAlbumInfo(request.getAlbumName(), request.getArtistName(), null) :
+//                HttpClient.getInstance().getArtistInfo(request.getArtistName(), null);
+//          }
+//
+//          @Override
+//          public ObservableSource<String> apply(Boolean aBoolean) {
+//            return getObservable(request)
+//                .map(responseBody -> parseLastFMNetworkImageUrl(request, responseBody));
+//          }
+//        }).firstElement().toObservable());
   }
 
   private String parseLastFMNetworkImageUrl(UriRequest request, ResponseBody body)
@@ -344,22 +345,23 @@ public abstract class ImageUriRequest<T> {
 
   //网易
   private Observable<String> getNeteaseNetworkThumbObservable(UriRequest request) {
-    return Observable.concat(Observable.create(new ObservableOnSubscribe<String>() {
-      @Override
-      public void subscribe(ObservableEmitter<String> emitter) throws Exception {
-        String imageUrl = SPUtil
-            .getValue(App.getContext(), SPUtil.COVER_KEY.NAME, request.getNeteaseCacheKey(), "");
-        if (!TextUtils.isEmpty(imageUrl) && UriUtil.isNetworkUri(Uri.parse(imageUrl))) {
-          emitter.onNext(imageUrl);
-        }
-        emitter.onComplete();
-      }
-    }), Observable.just(isAutoDownloadCover() && !TextUtils.isEmpty(request.getNeteaseSearchKey()))
-        .filter(aBoolean -> aBoolean)
-        .flatMap(aBoolean -> HttpClient.getInstance()
-            .getNeteaseSearch(request.getNeteaseSearchKey(), 0, 1, request.getNeteaseType())
-            .map(responseBody -> parseNeteaseNetworkImageUrl(request, responseBody))
-            .firstElement().toObservable()));
+    return Observable.empty();
+//    return Observable.concat(Observable.create(new ObservableOnSubscribe<String>() {
+//      @Override
+//      public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+//        String imageUrl = SPUtil
+//            .getValue(App.getContext(), SPUtil.COVER_KEY.NAME, request.getNeteaseCacheKey(), "");
+//        if (!TextUtils.isEmpty(imageUrl) && UriUtil.isNetworkUri(Uri.parse(imageUrl))) {
+//          emitter.onNext(imageUrl);
+//        }
+//        emitter.onComplete();
+//      }
+//    }), Observable.just(isAutoDownloadCover() && !TextUtils.isEmpty(request.getNeteaseSearchKey()))
+//        .filter(aBoolean -> aBoolean)
+//        .flatMap(aBoolean -> HttpClient.getInstance()
+//            .getNeteaseSearch(request.getNeteaseSearchKey(), 0, 1, request.getNeteaseType())
+//            .map(responseBody -> parseNeteaseNetworkImageUrl(request, responseBody))
+//            .firstElement().toObservable()));
   }
 
   @Nullable

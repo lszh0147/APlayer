@@ -20,7 +20,7 @@ import remix.myplayer.bean.qq.QSearchResponse
 import remix.myplayer.lyric.bean.LrcRow
 import remix.myplayer.misc.cache.DiskCache
 import remix.myplayer.misc.tageditor.TagEditor
-import remix.myplayer.request.network.HttpClient
+//import remix.myplayer.request.network.HttpClient
 import remix.myplayer.request.network.RxUtil
 import remix.myplayer.util.ImageUriUtil
 import remix.myplayer.util.LyricUtil
@@ -298,103 +298,106 @@ class LyricSearcher {
    * 网易歌词
    */
   private fun getNeteaseObservable(): Observable<List<LrcRow>> {
-    return HttpClient.getInstance()
-        .getNeteaseSearch(searchKey, 0, 1, 1)
-        .flatMap {
-          HttpClient.getInstance()
-              .getNeteaseLyric(Gson().fromJson(it.string(), NSongSearchResponse::class.java)?.result?.songs?.get(0)?.id ?: 0)
-              .map {
-                val lrcResponse = Gson().fromJson(it.string(), NLrcResponse::class.java)
-                val combine = lrcParser.getLrcRows(getBufferReader(lrcResponse.lrc?.lyric?.toByteArray() ?: "".toByteArray()), false, cacheKey, searchKey)
-                if (isCN && lrcResponse.tlyric != null && !lrcResponse.tlyric.lyric.isNullOrEmpty()) {
-                  val translate = lrcParser.getLrcRows(getBufferReader(lrcResponse.tlyric.lyric.toByteArray()), false, cacheKey, searchKey)
-                  if (translate.isNotEmpty()) {
-                    for (i in translate.indices) {
-                      for (j in combine.indices) {
-                        if (translate[i].time == combine[j].time) {
-                          combine[j].translate = translate[i].content
-                          break
-                        }
-                      }
-                    }
-                  }
-                }
-                Timber.v("NeteaseLyric")
-                lrcParser.saveLrcRows(combine, cacheKey, searchKey)
-                combine
-              }
-        }.onErrorResumeNext(Function {
-          Observable.empty()
-        })
+    return Observable.empty()
+//    return HttpClient.getInstance()
+//        .getNeteaseSearch(searchKey, 0, 1, 1)
+//        .flatMap {
+//          HttpClient.getInstance()
+//              .getNeteaseLyric(Gson().fromJson(it.string(), NSongSearchResponse::class.java)?.result?.songs?.get(0)?.id ?: 0)
+//              .map {
+//                val lrcResponse = Gson().fromJson(it.string(), NLrcResponse::class.java)
+//                val combine = lrcParser.getLrcRows(getBufferReader(lrcResponse.lrc?.lyric?.toByteArray() ?: "".toByteArray()), false, cacheKey, searchKey)
+//                if (isCN && lrcResponse.tlyric != null && !lrcResponse.tlyric.lyric.isNullOrEmpty()) {
+//                  val translate = lrcParser.getLrcRows(getBufferReader(lrcResponse.tlyric.lyric.toByteArray()), false, cacheKey, searchKey)
+//                  if (translate.isNotEmpty()) {
+//                    for (i in translate.indices) {
+//                      for (j in combine.indices) {
+//                        if (translate[i].time == combine[j].time) {
+//                          combine[j].translate = translate[i].content
+//                          break
+//                        }
+//                      }
+//                    }
+//                  }
+//                }
+//                Timber.v("NeteaseLyric")
+//                lrcParser.saveLrcRows(combine, cacheKey, searchKey)
+//                combine
+//              }
+//        }.onErrorResumeNext(Function {
+//          Observable.empty()
+//        })
   }
 
   /**
    * 酷狗歌词
    */
   private fun getKuGouObservable(): Observable<List<LrcRow>> {
+    return Observable.empty()
     //酷狗歌词
-    return HttpClient.getInstance().getKuGouSearch(searchKey, song.getDuration(), "")
-        .flatMap { body ->
-          val searchResponse = Gson().fromJson(body.string(), KSearchResponse::class.java)
-          if (searchResponse.candidates.isNotEmpty() && song.title.equals(searchResponse.candidates[0].song, true)) {
-            HttpClient.getInstance().getKuGouLyric(
-                searchResponse.candidates[0].id,
-                searchResponse.candidates[0].accesskey)
-                .map { lrcBody ->
-                  val lrcResponse = Gson().fromJson(lrcBody.string(), KLrcResponse::class.java)
-                  Timber.v("KugouLyric")
-                  lrcParser.getLrcRows(getBufferReader(Base64.decode(lrcResponse.content, Base64.DEFAULT)), true, cacheKey, searchKey)
-                }
-          } else {
-            Observable.empty()
-          }
-        }
-        .onErrorResumeNext(Function {
-          Observable.empty()
-        })
+//    return HttpClient.getInstance().getKuGouSearch(searchKey, song.getDuration(), "")
+//        .flatMap { body ->
+//          val searchResponse = Gson().fromJson(body.string(), KSearchResponse::class.java)
+//          if (searchResponse.candidates.isNotEmpty() && song.title.equals(searchResponse.candidates[0].song, true)) {
+//            HttpClient.getInstance().getKuGouLyric(
+//                searchResponse.candidates[0].id,
+//                searchResponse.candidates[0].accesskey)
+//                .map { lrcBody ->
+//                  val lrcResponse = Gson().fromJson(lrcBody.string(), KLrcResponse::class.java)
+//                  Timber.v("KugouLyric")
+//                  lrcParser.getLrcRows(getBufferReader(Base64.decode(lrcResponse.content, Base64.DEFAULT)), true, cacheKey, searchKey)
+//                }
+//          } else {
+//            Observable.empty()
+//          }
+//        }
+//        .onErrorResumeNext(Function {
+//          Observable.empty()
+//        })
   }
 
   /**
    * QQ歌词
    */
   private fun getQQObservable(): Observable<List<LrcRow>> {
-    return HttpClient.getInstance().getQQSearch(searchKey)
-        .flatMap { body ->
-          val searchResponse = Gson().fromJson(body.string(), QSearchResponse::class.java)
-          if (song.title.equals(searchResponse.data.song.list[0].songname, true)) {
-            HttpClient.getInstance().getQQLyric(searchResponse.data.song.list[0].songmid)
-                .map { lrcBody ->
-                  val lrcResponse = Gson().fromJson(lrcBody.string(), QLrcResponse::class.java)
-                  val combine = lrcParser.getLrcRows(getBufferReader(lrcResponse.lyric.toByteArray()), false, cacheKey, searchKey)
-                  combine.forEach {
-                    it.content = Util.htmlToText(it.content)
-                  }
-                  if (lrcResponse.trans.isNotEmpty()) {
-                    val translate = lrcParser.getLrcRows(getBufferReader(lrcResponse.trans.toByteArray()), false, cacheKey, searchKey)
-                    if (isCN && translate.size > 0) {
-                      translate.forEach {
-                        if (it.content.isNotEmpty() && it.content != "//") {
-                          for (i in combine.indices) {
-                            if (it.time == combine[i].time) {
-                              combine[i].translate = Util.htmlToText(it.content)
-                              break
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                  Timber.v("QQLyric")
-                  lrcParser.saveLrcRows(combine, cacheKey, searchKey)
-                  combine
-                }
-          } else {
-            Observable.empty()
-          }
-        }
-        .onErrorResumeNext(Function {
-          Observable.empty()
-        })
+    return Observable.empty()
+//    return HttpClient.getInstance().getQQSearch(searchKey)
+//        .flatMap { body ->
+//          val searchResponse = Gson().fromJson(body.string(), QSearchResponse::class.java)
+//          if (song.title.equals(searchResponse.data.song.list[0].songname, true)) {
+//            HttpClient.getInstance().getQQLyric(searchResponse.data.song.list[0].songmid)
+//                .map { lrcBody ->
+//                  val lrcResponse = Gson().fromJson(lrcBody.string(), QLrcResponse::class.java)
+//                  val combine = lrcParser.getLrcRows(getBufferReader(lrcResponse.lyric.toByteArray()), false, cacheKey, searchKey)
+//                  combine.forEach {
+//                    it.content = Util.htmlToText(it.content)
+//                  }
+//                  if (lrcResponse.trans.isNotEmpty()) {
+//                    val translate = lrcParser.getLrcRows(getBufferReader(lrcResponse.trans.toByteArray()), false, cacheKey, searchKey)
+//                    if (isCN && translate.size > 0) {
+//                      translate.forEach {
+//                        if (it.content.isNotEmpty() && it.content != "//") {
+//                          for (i in combine.indices) {
+//                            if (it.time == combine[i].time) {
+//                              combine[i].translate = Util.htmlToText(it.content)
+//                              break
+//                            }
+//                          }
+//                        }
+//                      }
+//                    }
+//                  }
+//                  Timber.v("QQLyric")
+//                  lrcParser.saveLrcRows(combine, cacheKey, searchKey)
+//                  combine
+//                }
+//          } else {
+//            Observable.empty()
+//          }
+//        }
+//        .onErrorResumeNext(Function {
+//          Observable.empty()
+//        })
   }
 
   /**
@@ -405,20 +408,21 @@ class LyricSearcher {
    */
   @Deprecated("")
   private fun getNetworkObservable(type: Int): Observable<List<LrcRow>> {
-    var newType = type
-
-    if (TextUtils.isEmpty(searchKey)) {
-      return Observable.error(Throwable("no available key"))
-    }
-    if (newType == SPUtil.LYRIC_KEY.LYRIC_DEFAULT)
-      newType = SPUtil.LYRIC_KEY.LYRIC_NETEASE
-    return if (newType == SPUtil.LYRIC_KEY.LYRIC_KUGOU) {
-      //酷狗歌词
-      getKuGouObservable()
-    } else {
-      //网易歌词
-      getNeteaseObservable()
-    }
+    return Observable.empty()
+//    var newType = type
+//
+//    if (TextUtils.isEmpty(searchKey)) {
+//      return Observable.error(Throwable("no available key"))
+//    }
+//    if (newType == SPUtil.LYRIC_KEY.LYRIC_DEFAULT)
+//      newType = SPUtil.LYRIC_KEY.LYRIC_NETEASE
+//    return if (newType == SPUtil.LYRIC_KEY.LYRIC_KUGOU) {
+//      //酷狗歌词
+//      getKuGouObservable()
+//    } else {
+//      //网易歌词
+//      getNeteaseObservable()
+//    }
   }
 
   private fun isTranslateCanUse(translate: String): Boolean {
