@@ -18,6 +18,7 @@
     <item name="colorPrimary">@color/transparent</item>
     <item name="colorPrimaryDark">@color/transparent</item>
     <item name="editTextStyle">@style/EditTextStyle</item>
+    <item name="android:windowDisablePreview">true</item>
   </style>
 
   <style name="EditTextStyle" parent="@style/Widget.AppCompat.EditText">
