@@ -295,7 +295,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
       mContext,
       SETTING_KEY.NAME,
       SETTING_KEY.AUTO_DOWNLOAD_ALBUM_COVER,
-      mContext.getString(R.string.always)
+      mContext.getString(R.string.never)
     )
     binding.settingCoverSourceText.text = mOriginalAlbumChoice
 
@@ -331,7 +331,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
       mContext,
       SETTING_KEY.NAME,
       SETTING_KEY.LOCKSCREEN,
-      Constants.APLAYER_LOCKSCREEN
+      Constants.CLOSE_LOCKSCREEN
     )
     binding.settingLockscreenText.setText(
       when (lockScreen) {
@@ -1074,7 +1074,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
       mContext,
       SETTING_KEY.NAME,
       SETTING_KEY.AUTO_DOWNLOAD_ALBUM_COVER,
-      mContext.getString(R.string.always)
+      mContext.getString(R.string.never)
     )
     getBaseDialog(mContext).title(R.string.auto_download_album_artist_cover)
       .items(
@@ -1196,7 +1196,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
         mContext,
         SETTING_KEY.NAME,
         SETTING_KEY.LOCKSCREEN,
-        Constants.SYSTEM_LOCKSCREEN
+        Constants.CLOSE_LOCKSCREEN
       )
     ) { dialog, view, which, text ->
         SPUtil.putValue(
@@ -1343,7 +1343,7 @@ class SettingActivity : ToolbarActivity(), FolderChooserDialog.FolderCallback, F
       mContext,
       SETTING_KEY.NAME,
       BOTTOM_OF_NOW_PLAYING_SCREEN,
-      PlayerActivity.BOTTOM_SHOW_BOTH
+      PlayerActivity.BOTTOM_SHOW_NONE
     )
     getBaseDialog(mContext).title(R.string.show_on_bottom).items(
       getString(R.string.show_next_song_only),

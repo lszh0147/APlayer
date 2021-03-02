@@ -277,7 +277,7 @@ open class MainActivity : MenuActivity(), View.OnClickListener {
     when (currentFragment) {
       is SongFragment -> sortOrder = SPUtil
           .getValue(mContext, SPUtil.SETTING_KEY.NAME, SPUtil.SETTING_KEY.SONG_SORT_ORDER,
-              SortOrder.SongSortOrder.SONG_A_Z)
+              SortOrder.SongSortOrder.SONG_DISPLAY_TITLE_A_Z)
       is AlbumFragment -> sortOrder = SPUtil
           .getValue(mContext, SPUtil.SETTING_KEY.NAME, SPUtil.SETTING_KEY.ALBUM_SORT_ORDER,
               SortOrder.AlbumSortOrder.ALBUM_A_Z)

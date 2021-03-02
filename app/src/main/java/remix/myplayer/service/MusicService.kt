@@ -469,7 +469,7 @@ class MusicService : BaseService(), Playback, MusicEventCallback,
       }
       //锁屏
       SETTING_KEY.LOCKSCREEN -> {
-        lockScreen = SPUtil.getValue(service, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, SYSTEM_LOCKSCREEN)
+        lockScreen = SPUtil.getValue(service, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, CLOSE_LOCKSCREEN)
         when (lockScreen) {
           CLOSE_LOCKSCREEN -> clearMediaSession()
           SYSTEM_LOCKSCREEN, APLAYER_LOCKSCREEN -> updateMediaSession(Command.NEXT)
@@ -1554,7 +1554,7 @@ class MusicService : BaseService(), Playback, MusicEventCallback,
     }
 
     //用户设置
-    lockScreen = SPUtil.getValue(service, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, SYSTEM_LOCKSCREEN)
+    lockScreen = SPUtil.getValue(service, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, CLOSE_LOCKSCREEN)
     playModel = SPUtil.getValue(this, SETTING_KEY.NAME, SETTING_KEY.PLAY_MODEL, MODE_LOOP)
     showDesktopLyric = SPUtil.getValue(this, SETTING_KEY.NAME, SETTING_KEY.DESKTOP_LYRIC_SHOW, false)
     showStatusBarLyric = SPUtil.getValue(this, SETTING_KEY.NAME, SETTING_KEY.STATUSBAR_LYRIC_SHOW, false);
@@ -1915,7 +1915,7 @@ class MusicService : BaseService(), Playback, MusicEventCallback,
       if (Intent.ACTION_SCREEN_ON == action) {
         screenOn = true
         //显示锁屏
-        if (isPlay && SPUtil.getValue(context, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, SYSTEM_LOCKSCREEN) == APLAYER_LOCKSCREEN) {
+        if (isPlay && SPUtil.getValue(context, SETTING_KEY.NAME, SETTING_KEY.LOCKSCREEN, CLOSE_LOCKSCREEN) == APLAYER_LOCKSCREEN) {
           try {
             context.startActivity(Intent(context, LockScreenActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

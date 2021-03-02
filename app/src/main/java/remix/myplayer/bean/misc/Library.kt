@@ -51,7 +51,7 @@ data class Library(
           Library(TAG_SONG),
           Library(TAG_ALBUM),
           Library(TAG_ARTIST),
-          Library(TAG_PLAYLIST),
+//          Library(TAG_PLAYLIST),
           Library(TAG_FOLDER))
     }
 

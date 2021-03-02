@@ -82,7 +82,7 @@ object ThemeStore {
   @get:ColorInt
   var materialPrimaryColor: Int
     get() = SPUtil.getValue(
-      App.getContext(), KEY_NAME, KEY_PRIMARY_COLOR, Color.parseColor("#698cf6")
+      App.getContext(), KEY_NAME, KEY_PRIMARY_COLOR, Color.parseColor("#6E7B8B")
     )
     set(@ColorInt value) {
       SPUtil.putValue(App.getContext(), KEY_NAME, KEY_PRIMARY_COLOR, value)
@@ -97,7 +97,7 @@ object ThemeStore {
   var accentColor: Int
     get() {
       var accentColor = SPUtil.getValue(
-        App.getContext(), KEY_NAME, KEY_ACCENT_COLOR, Color.parseColor("#698cf6")
+        App.getContext(), KEY_NAME, KEY_ACCENT_COLOR, Color.parseColor("#93daa0")
       )
       if (ColorUtil.isColorCloseToWhite(accentColor)) {
         accentColor = ColorUtil.getColor(R.color.accent_gray_color)

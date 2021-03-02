@@ -82,7 +82,7 @@ public class App extends MultiDexApplication implements ActivityLifecycleCallbac
     Completable
         .fromAction(() -> {
           ThemeStore.sImmersiveMode = SPUtil
-              .getValue(App.getContext(), SETTING_KEY.NAME, SETTING_KEY.IMMERSIVE_MODE, false);
+              .getValue(App.getContext(), SETTING_KEY.NAME, SETTING_KEY.IMMERSIVE_MODE, true);
           ThemeStore.sColoredNavigation = SPUtil.getValue(App.getContext(), SETTING_KEY.NAME,
               SETTING_KEY.COLOR_NAVIGATION, false);
         })

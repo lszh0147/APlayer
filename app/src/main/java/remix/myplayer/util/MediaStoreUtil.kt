@@ -166,7 +166,7 @@ object MediaStoreUtil {
     return getSongs(null,
         null,
         SPUtil.getValue(mContext, SETTING_KEY.NAME, SETTING_KEY.SONG_SORT_ORDER,
-            SortOrder.SongSortOrder.SONG_A_Z))
+            SortOrder.SongSortOrder.SONG_DISPLAY_TITLE_A_Z))
   }
 
   @JvmStatic
@@ -185,7 +185,7 @@ object MediaStoreUtil {
         null,
         null,
         SPUtil.getValue(mContext, SETTING_KEY.NAME, SETTING_KEY.SONG_SORT_ORDER,
-            SortOrder.SongSortOrder.SONG_A_Z))
+            SortOrder.SongSortOrder.SONG_DISPLAY_TITLE_A_Z))
 
   @JvmStatic
   fun getAllFolder(): List<Folder> {

@@ -129,6 +129,6 @@ data class Song(
     @JvmStatic
     var SHOW_DISPLAYNAME = SPUtil
         .getValue(App.getContext(), SPUtil.SETTING_KEY.NAME, SPUtil.SETTING_KEY.SHOW_DISPLAYNAME,
-            false)
+            true)
   }
 }

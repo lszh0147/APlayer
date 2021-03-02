@@ -85,7 +85,7 @@ public abstract class ImageUriRequest<T> {
   public static String AUTO_DOWNLOAD_ALBUM = SPUtil
       .getValue(App.getContext(), SPUtil.SETTING_KEY.NAME,
           SPUtil.SETTING_KEY.AUTO_DOWNLOAD_ALBUM_COVER,
-          App.getContext().getString(R.string.always));
+          App.getContext().getString(R.string.never));
   //忽略内嵌
   public static boolean IGNORE_MEDIA_STORE = SPUtil
       .getValue(App.getContext(), SPUtil.SETTING_KEY.NAME,

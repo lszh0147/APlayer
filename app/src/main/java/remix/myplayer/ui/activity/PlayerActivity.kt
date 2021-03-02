@@ -744,7 +744,7 @@ class PlayerActivity : BaseMusicActivity(), FileCallback {
    * 初始化底部区域
    */
   private fun setUpBottom() {
-    bottomConfig = SPUtil.getValue(mContext, SETTING_KEY.NAME, SETTING_KEY.BOTTOM_OF_NOW_PLAYING_SCREEN, BOTTOM_SHOW_BOTH)
+    bottomConfig = SPUtil.getValue(mContext, SETTING_KEY.NAME, SETTING_KEY.BOTTOM_OF_NOW_PLAYING_SCREEN, BOTTOM_SHOW_NONE)
     if (!this.isPortraitOrientation()) { //横屏不显示底部
       bottomConfig = BOTTOM_SHOW_NONE
     }
